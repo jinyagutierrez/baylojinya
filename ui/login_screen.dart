@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../logic/login_logic.dart';
 import 'sign_up_screen.dart';
-import 'homepage_screen.dart';
+import '../main_screen.dart';  
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,12 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 
-      // Navigate to Homepage
+      // Navigate to MainScreen (changed from HomepageScreen)
       Future.delayed(const Duration(milliseconds: 500), () {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomepageScreen(),
+            builder: (context) => const MainScreen(),  // ← Changed here
           ),
               (route) => false,
         );
