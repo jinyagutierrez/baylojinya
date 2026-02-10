@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'inbox_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -11,12 +12,16 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFD9E8F5),
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'PROFILE',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF2C1810),
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const Icon(
+            Icons.arrow_forward_ios,
+            color: Color(0xFF8F5032),
+            size: 20,
           ),
         ),
       ),
@@ -26,116 +31,204 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                // Profile Picture
+                // Profile Card with User Info
                 Container(
-                  width: 120,
-                  height: 120,
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFF8F5032),
-                      width: 4,
-                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 60,
-                      color: Color(0xFF8F5032),
-                    ),
+                  child: Row(
+                    children: [
+                      // Profile Picture
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xFF8F5032),
+                            width: 2,
+                          ),
+                        ),
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Color(0xFF8F5032),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      // User Info
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Juan Dela Cruz',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2C1810),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '48 1st 2d St, Moonwalk Subdivision Barangay 880 Brgy, Las Pinas city, Metro Manila',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                                height: 1.3,
+                              ),
+                              maxLines: 3,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                const Text(
-                  'User Name',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2C1810),
-                  ),
-                ),
-                const Text(
-                  'user@email.com',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 32),
 
-                // Profile Options
-                _buildProfileOption(
-                  icon: Icons.edit,
-                  title: 'Edit Profile',
-                  onTap: () {},
-                ),
-                _buildProfileOption(
-                  icon: Icons.history,
-                  title: 'Trade History',
-                  onTap: () {},
-                ),
-                _buildProfileOption(
-                  icon: Icons.favorite,
-                  title: 'Favorites',
-                  onTap: () {},
-                ),
-                _buildProfileOption(
-                  icon: Icons.settings,
-                  title: 'Settings',
-                  onTap: () {},
-                ),
-                _buildProfileOption(
-                  icon: Icons.help,
-                  title: 'Help & Support',
-                  onTap: () {},
-                ),
-                _buildProfileOption(
-                  icon: Icons.logout,
-                  title: 'Logout',
-                  onTap: () {},
-                  isDestructive: true,
+                const SizedBox(height: 20),
+
+                // Menu Container
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildMenuItem(
+                        icon: Icons.person_outline,
+                        title: 'MY ACCOUNT',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.chat_bubble_outline,
+                        title: 'INBOX',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const InboxScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.favorite_border,
+                        title: 'SAVED ITEMS',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.remove_red_eye_outlined,
+                        title: 'RECENTLY VIEWED',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.shopping_cart_outlined,
+                        title: 'CART',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.storefront_outlined,
+                        title: 'SELL',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.settings_outlined,
+                        title: 'SETTINGS',
+                        onTap: () {},
+                      ),
+                      _buildDivider(),
+                      _buildMenuItem(
+                        icon: Icons.logout,
+                        title: 'LOGOUT',
+                        onTap: () {
+                          // Show logout confirmation
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Logout'),
+                              content: const Text('Are you sure you want to logout?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    // Add logout logic here
+                                  },
+                                  child: const Text(
+                                    'Logout',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
-      // ← Removed bottomNavigationBar
     );
   }
 
-  Widget _buildProfileOption({
+  Widget _buildMenuItem({
     required IconData icon,
     required String title,
     required VoidCallback onTap,
-    bool isDestructive = false,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(
-          icon,
-          color: isDestructive ? Colors.red : const Color(0xFF2C1810),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: const Color(0xFF2C1810),
+              size: 24,
+            ),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF2C1810),
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
         ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: isDestructive ? Colors.red : const Color(0xFF2C1810),
-          ),
-        ),
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          size: 16,
-          color: Colors.grey,
-        ),
-        tileColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Divider(
+        height: 1,
+        color: Colors.grey[300],
       ),
     );
   }
