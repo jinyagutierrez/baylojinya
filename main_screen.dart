@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'ui/homepage_screen.dart';         // ← Add ui/ prefix
-import 'ui/search_screen.dart';           // ← Add ui/ prefix
-import 'ui/barter_posting_screen.dart';   // ← Add ui/ prefix
-import 'ui/inbox_screen.dart';            // ← Add ui/ prefix
-import 'ui/profile_screen.dart';          // ← Add ui/ prefix
+import 'ui/homepage_screen.dart';
+import 'ui/search_screen.dart';
+import 'ui/barter_posting_screen.dart';
+import 'ui/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,11 +15,11 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-     HomepageScreen(),      // ← Keep as HomepageScreen (not HomepageContent)
-     SearchScreen(),
-     BarterPostingScreen(),
-     InboxScreen(),
-     ProfileScreen(),
+    HomepageScreen(),
+    SearchScreen(),
+    BarterPostingScreen(),
+    NotificationPlaceholderScreen(), // Placeholder for notifications
+    ProfileScreen(),
   ];
 
   void _onNavItemTapped(int index) {
@@ -102,6 +101,52 @@ class _MainScreenState extends State<MainScreen> {
           icon,
           color: const Color(0xFF2C1810),
           size: 28,
+        ),
+      ),
+    );
+  }
+}
+
+// Placeholder screen for notifications
+class NotificationPlaceholderScreen extends StatelessWidget {
+  const NotificationPlaceholderScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFD9E8F5),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFD9E8F5),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'NOTIFICATIONS',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2C1810),
+          ),
+        ),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.notifications_outlined,
+              size: 80,
+              color: Colors.grey,
+            ),
+            SizedBox(height: 16),
+            Text(
+              'No notifications yet',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ),
     );
