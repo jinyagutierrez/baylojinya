@@ -31,12 +31,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Show back button only if we have an initial query (came from homepage)
+    final bool showBackButton = widget.initialQuery != null;
+
     return Scaffold(
       backgroundColor: const Color(0xFFD9E8F5),
       appBar: AppBar(
         backgroundColor: const Color(0xFFD9E8F5),
         elevation: 0,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: showBackButton,
+        leading: showBackButton
+            ? IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF2C1810)),
+          onPressed: () => Navigator.pop(context),
+        )
+            : null,
         title: const Text(
           'SEARCH WITH CATEGORIES',
           style: TextStyle(
