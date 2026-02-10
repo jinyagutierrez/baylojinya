@@ -24,6 +24,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
     super.dispose();
   }
 
+  void _performSearch(String query) {
+    if (query.trim().isEmpty) return;
+
+    // Navigate to search screen with the query
+    // This will switch to the search tab in the main navigation
+    // Since SearchScreen is already in the bottom navigation, we just need to update the parent
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchScreen(initialQuery: query),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,14 +71,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      onSubmitted: (value) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchScreen(initialQuery: value),
-                          ),
-                        );
-                      },
+                      onSubmitted: _performSearch,
                     ),
                   ),
                 ],
