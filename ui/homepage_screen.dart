@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '../logic/homepage_logic.dart';
 import 'search_screen.dart';
-import 'barter_posting_screen.dart';
-import 'inbox_screen.dart';
-import 'profile_screen.dart';
 
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
@@ -14,7 +11,6 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomepageScreenState extends State<HomepageScreen> {
   final HomepageLogic _logic = HomepageLogic();
-  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -26,42 +22,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
   void dispose() {
     _logic.dispose();
     super.dispose();
-  }
-
-  void _onNavItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-      // Already on homepage
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SearchScreen()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const BarterPostingScreen()),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const InboxScreen()),
-        );
-        break;
-      case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfileScreen()),
-        );
-        break;
-    }
   }
 
   @override
@@ -191,7 +151,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
     );
   }
 
@@ -302,73 +261,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNavBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF8F5032),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home, 0),
-              _buildNavItem(Icons.search, 1),
-              _buildNavItemCenter(Icons.add, 2),
-              _buildNavItem(Icons.notifications, 3),
-              _buildNavItem(Icons.person, 4),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, int index) {
-    final isSelected = _currentIndex == index;
-    return GestureDetector(
-      onTap: () => _onNavItemTapped(index),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFFFF9C4) : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(
-          icon,
-          color: isSelected ? const Color(0xFF2C1810) : Colors.white,
-          size: 24,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItemCenter(IconData icon, int index) {
-    return GestureDetector(
-      onTap: () => _onNavItemTapped(index),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          color: Color(0xFFFFF9C4),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: const Color(0xFF2C1810),
-          size: 28,
-        ),
       ),
     );
   }
