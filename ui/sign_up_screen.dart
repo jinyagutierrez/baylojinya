@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-
+                    color: const Color(0xFFF5F5DC),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(

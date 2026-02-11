@@ -163,32 +163,55 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _handleGallery() {
-    print('Gallery tapped');
-    _logic.attachFile();
+    print('🖼️ Gallery button tapped!');
     setState(() {
       _showAttachmentOptions = false;
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Gallery feature coming soon!'),
+        backgroundColor: Color(0xFF8F5032),
+      ),
+    );
   }
 
   void _handleCamera() {
-    print('Camera tapped');
-    _logic.attachFile();
+    print('📷 Camera button tapped!');
     setState(() {
       _showAttachmentOptions = false;
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Camera feature coming soon!'),
+        backgroundColor: Color(0xFF8F5032),
+      ),
+    );
   }
 
   void _handleDocs() {
-    print('Docs tapped');
-    _logic.attachFile();
+    print('📄 Docs button tapped!');
     setState(() {
       _showAttachmentOptions = false;
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Documents feature coming soon!'),
+        backgroundColor: Color(0xFF8F5032),
+      ),
+    );
   }
 
   void _handleVoiceMessage() {
-    print('Voice message tapped');
-    // TODO: Implement voice recording
+    print('🎤 Voice message button tapped!');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Voice recording - Coming soon!'),
+        backgroundColor: Colors.blue,
+      ),
+    );
   }
 
   void _sendMessage() {
@@ -319,7 +342,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.attach_file),
-                        onPressed: _toggleAttachmentOptions,
+                        onPressed: () {
+                          print('📎 Attachment icon tapped!');
+                          _toggleAttachmentOptions();
+                        },
                         color: const Color(0xFF2C1810),
                       ),
                       Expanded(
@@ -349,8 +375,10 @@ class _ChatScreenState extends State<ChatScreen> {
           // Tap outside to close attachment options
           if (_showAttachmentOptions)
             Positioned.fill(
+              bottom: 90, // Don't cover the input area
               child: GestureDetector(
                 onTap: () {
+                  print('👆 Tapped outside - closing attachment options');
                   setState(() {
                     _showAttachmentOptions = false;
                   });
@@ -367,7 +395,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildAttachmentOption(IconData icon, String label, VoidCallback onTap) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        print('✋ $label option tapped!');
+        onTap();
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../logic/verification_logic.dart';
-import 'homepage_screen.dart';
+import '../main_screen.dart';  // ← Changed import
 
 class VerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -55,11 +55,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context); // Close dialog
-              // Navigate to Homepage and remove all previous routes
+              // Navigate to MainScreen and remove all previous routes
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomepageScreen(),
+                  builder: (context) => const MainScreen(),  // ← Changed here
                 ),
                     (route) => false,
               );

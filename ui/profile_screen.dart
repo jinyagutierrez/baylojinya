@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'inbox_screen.dart';
+import 'my_account_screen.dart';
+import 'saved_items_screen.dart';
+import 'recently_viewed_screen.dart';
+import 'cart_screen.dart';
+import 'sell_screen.dart';
+import 'settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -102,12 +108,21 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.person_outline,
                         title: 'MY ACCOUNT',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyAccountScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.chat_bubble_outline,
                         title: 'INBOX',
                         onTap: () {
@@ -121,36 +136,77 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.favorite_border,
                         title: 'SAVED ITEMS',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SavedItemsScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.remove_red_eye_outlined,
                         title: 'RECENTLY VIEWED',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RecentlyViewedScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.shopping_cart_outlined,
                         title: 'CART',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CartScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.storefront_outlined,
                         title: 'SELL',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SellScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.settings_outlined,
                         title: 'SETTINGS',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsScreen(),
+                            ),
+                          );
+                        },
                       ),
                       _buildDivider(),
                       _buildMenuItem(
+                        context: context,
                         icon: Icons.logout,
                         title: 'LOGOUT',
                         onTap: () {
@@ -168,7 +224,12 @@ class ProfileScreen extends StatelessWidget {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    // Add logout logic here
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Logged out successfully'),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     'Logout',
@@ -192,6 +253,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildMenuItem({
+    required BuildContext context,
     required IconData icon,
     required String title,
     required VoidCallback onTap,

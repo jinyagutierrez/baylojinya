@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../logic/login_logic.dart';
 import 'sign_up_screen.dart';
-import '../main_screen.dart';  
+import '../main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
