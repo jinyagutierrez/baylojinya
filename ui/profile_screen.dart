@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'inbox_screen.dart';
-import 'my_account_screen.dart';
-import 'saved_items_screen.dart';
-import 'recently_viewed_screen.dart';
-import 'cart_screen.dart';
-import 'sell_screen.dart';
-import 'settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final Function(int)? onNavigate;
+
+  const ProfileScreen({super.key, this.onNavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +18,6 @@ class ProfileScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.3),
             borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.arrow_forward_ios,
-            color: Color(0xFF8F5032),
-            size: 20,
           ),
         ),
       ),
@@ -112,12 +102,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.person_outline,
                         title: 'MY ACCOUNT',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyAccountScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(5); // Index 5 = MyAccountScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -126,12 +113,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.chat_bubble_outline,
                         title: 'INBOX',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const InboxScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(6); // Index 6 = InboxScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -140,12 +124,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.favorite_border,
                         title: 'SAVED ITEMS',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SavedItemsScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(7); // Index 7 = SavedItemsScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -154,12 +135,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.remove_red_eye_outlined,
                         title: 'RECENTLY VIEWED',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RecentlyViewedScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(8); // Index 8 = RecentlyViewedScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -168,12 +146,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.shopping_cart_outlined,
                         title: 'CART',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CartScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(9); // Index 9 = CartScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -182,12 +157,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.storefront_outlined,
                         title: 'SELL',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SellScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(10); // Index 10 = SellScreen
+                          }
                         },
                       ),
                       _buildDivider(),
@@ -196,12 +168,9 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.settings_outlined,
                         title: 'SETTINGS',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingsScreen(),
-                            ),
-                          );
+                          if (onNavigate != null) {
+                            onNavigate!(11); // Index 11 = SettingsScreen
+                          }
                         },
                       ),
                       _buildDivider(),
