@@ -109,13 +109,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
+
+// Back Button (Upper Left)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context); // Go back to LoginScreen
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
                 // Logo
                 Container(
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF5F5DC),
+
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
