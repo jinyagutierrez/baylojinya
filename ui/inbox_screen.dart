@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../logic/inbox_logic.dart';
 
 class InboxScreen extends StatefulWidget {
-  const InboxScreen({super.key});
+  final Function(int)? onNavigate;
+
+  const InboxScreen({super.key, this.onNavigate});
 
   @override
   State<InboxScreen> createState() => _InboxScreenState();
@@ -34,32 +36,53 @@ class _InboxScreenState extends State<InboxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFE8E8E8),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF2C1810)),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'INBOX',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF2C1810),
+    return Column(
+      children: [
+        // AppBar replacement (keeps original UI)
+        Container(
+          color: Colors.white,
+          child: SafeArea(
+            bottom: false,
+            child: SizedBox(
+              height: 56,
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Color(0xFF2C1810)),
+                    onPressed: () {
+                      if (widget.onNavigate != null) {
+                        widget.onNavigate!(4); // Go back to ProfileScreen
+                      }
+                    },
+                  ),
+                  const Text(
+                    'INBOX',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2C1810),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: _logic.conversations.length,
-        itemBuilder: (context, index) {
-          final conversation = _logic.conversations[index];
-          return _buildConversationItem(conversation);
-        },
-      ),
+        // Body
+        Expanded(
+          child: Container(
+            color: const Color(0xFFE8E8E8),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _logic.conversations.length,
+              itemBuilder: (context, index) {
+                final conversation = _logic.conversations[index];
+                return _buildConversationItem(conversation);
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -163,55 +186,32 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _handleGallery() {
-    print('🖼️ Gallery button tapped!');
+    print('Gallery tapped');
+    _logic.attachFile();
     setState(() {
       _showAttachmentOptions = false;
     });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Gallery feature coming soon!'),
-        backgroundColor: Color(0xFF8F5032),
-      ),
-    );
   }
 
   void _handleCamera() {
-    print('📷 Camera button tapped!');
+    print('Camera tapped');
+    _logic.attachFile();
     setState(() {
       _showAttachmentOptions = false;
     });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Camera feature coming soon!'),
-        backgroundColor: Color(0xFF8F5032),
-      ),
-    );
   }
 
   void _handleDocs() {
-    print('📄 Docs button tapped!');
+    print('Docs tapped');
+    _logic.attachFile();
     setState(() {
       _showAttachmentOptions = false;
     });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Documents feature coming soon!'),
-        backgroundColor: Color(0xFF8F5032),
-      ),
-    );
   }
 
   void _handleVoiceMessage() {
-    print('🎤 Voice message button tapped!');
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Voice recording - Coming soon!'),
-        backgroundColor: Colors.blue,
-      ),
-    );
+    print('Voice message tapped');
+    // TODO: Implement voice recording
   }
 
   void _sendMessage() {
@@ -342,10 +342,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.attach_file),
-                        onPressed: () {
-                          print('📎 Attachment icon tapped!');
-                          _toggleAttachmentOptions();
-                        },
+                        onPressed: _toggleAttachmentOptions,
                         color: const Color(0xFF2C1810),
                       ),
                       Expanded(
@@ -375,10 +372,8 @@ class _ChatScreenState extends State<ChatScreen> {
           // Tap outside to close attachment options
           if (_showAttachmentOptions)
             Positioned.fill(
-              bottom: 90, // Don't cover the input area
               child: GestureDetector(
                 onTap: () {
-                  print('👆 Tapped outside - closing attachment options');
                   setState(() {
                     _showAttachmentOptions = false;
                   });
@@ -395,10 +390,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildAttachmentOption(IconData icon, String label, VoidCallback onTap) {
     return GestureDetector(
-      onTap: () {
-        print('✋ $label option tapped!');
-        onTap();
-      },
+      onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
